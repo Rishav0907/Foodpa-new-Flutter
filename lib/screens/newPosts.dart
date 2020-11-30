@@ -8,6 +8,7 @@ import 'package:social_media/constants/constant.dart';
 const URL="http://192.168.43.61:8000/RegisterFood";
 String baseImage;
 class NewPost extends StatefulWidget {
+  static String id="new_post";
   @override
   _NewPostState createState() => _NewPostState();
 }

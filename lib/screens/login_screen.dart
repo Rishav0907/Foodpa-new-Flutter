@@ -4,11 +4,13 @@ import 'package:social_media/constants/constant.dart';
 import 'package:social_media/components/login_input_style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'main_screen.dart';
 
 enum FieldType {Email, Password }
-const URL="http://192.168.43.61:8000/login";
+const URL="http://192.168.0.105:8000/login";
 
 class Login extends StatefulWidget {
+  static String id="login";
   @override
   _LoginState createState() => _LoginState();
 }
@@ -94,6 +96,7 @@ class _LoginState extends State<Login> {
                     setState(() {
                       showSpinner=false;
                     });
+                    Navigator.pushNamed(context, MainScreen.id);
                   }
                 },
                 elevation: 15,

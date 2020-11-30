@@ -9,6 +9,7 @@ enum FieldType { Name, Email, Contact, Password }
 const URL="http://192.168.43.61:8000/register";
 
 class Registration extends StatefulWidget {
+  static String id="registration";
   @override
   _RegistrationState createState() => _RegistrationState();
 }
