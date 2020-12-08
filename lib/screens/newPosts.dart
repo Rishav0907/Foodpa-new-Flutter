@@ -100,6 +100,7 @@ class _NewPostState extends State<NewPost> {
                 'foodImage':baseImage
               });
               print(response.body);
+              // Navigator.pop(context);
             },
             height: 70,
           child: Text(
