@@ -4,13 +4,19 @@ const mongoose = require('mongoose');
 const User = require('./models/Users');
 const bcrypt = require('bcryptjs')
 const Food = require('./models/Food');
+const {body,validationResult}=require('express-validator')
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.get('/', (req, res) => {
     console.log('requested')
     res.send('<h1>hello</h1>')
 })
-app.post('/register', (req, res, next) => {
+app.post('/register',[
+    body('fullName').isLength({min:5}).exists(),
+    body('email').isEmail().exists(),
+    body('contact').isMobilePhone().exists(),
+    body('password').isLength({min:5}).exists()
+] ,(req, res, next) => {
     let fullName = req.body.fullName;
     let email = req.body.email;
     let contact = req.body.contact;

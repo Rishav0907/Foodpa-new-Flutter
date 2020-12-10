@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'dart:convert';
 import 'package:social_media/constants/constant.dart';
 
-class Post extends StatelessWidget {
+var img64;
+
+class Post extends StatefulWidget {
   final String foodName;
   final String foodPrice;
-  Post({this.foodName, this.foodPrice});
+  final String foodImage;
+  Post(
+      {@required this.foodName,
+      @required this.foodPrice,
+      @required this.foodImage});
+  @override
+  _PostState createState() => _PostState();
+}
+
+class _PostState extends State<Post> {
+  var img64;
+  @override
+  void initState()
+  {
+    super.initState();
+    img64=base64Decode(widget.foodImage);
+    print(img64);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,18 +45,18 @@ class Post extends StatelessWidget {
             // padding: EdgeInsets.all(15),
             height: 200,
             width: double.infinity,
-            child: Image.asset(
-              'images/food.jpeg',
+            child: Image.memory(
+              img64,
               height: 70,
               width: double.infinity,
               fit: BoxFit.fill,
             ),
           ),
           Text(
-            foodName,
+            widget.foodName,
             style: TextStyle(fontSize: 30),
           ),
-          Text(foodPrice, style: TextStyle(fontSize: 30)),
+          Text(widget.foodPrice, style: TextStyle(fontSize: 30)),
           SizedBox(
             width: 200,
             child: RaisedButton(

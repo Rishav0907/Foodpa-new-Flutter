@@ -43,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
             child: Center(
               child: AppBar(
                 title: Text(
-                  'CLAP',
+                  'FOODPA',
                   style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 6,
@@ -64,6 +64,7 @@ class _MainScreenState extends State<MainScreen> {
                       Post(
                         foodName: foodData[i - 1]['foodName'],
                         foodPrice: foodData[i - 1]['foodPrice'],
+                        foodImage: foodData[i-1]['foodImage']
                       )
                 ],
               )),
