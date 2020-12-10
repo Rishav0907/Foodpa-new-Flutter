@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs')
 const Food = require('./models/Food');
 const {body,validationResult}=require('express-validator')
 const app = express();
+const dbURL= process.env.DB_URL || "mongodb+srv://riju2002:crystalfeildtheory@cluster0.l8bkc.mongodb.net/test";
+var foodLength;
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.get('/', (req, res) => {
     console.log('requested')
@@ -90,7 +92,18 @@ app.get("/foodItems", (req, res, next) => {
         })
 })
 
-mongoose.connect("mongodb://localhost:27017/foodpa", { useNewUrlParser: true })
+app.get('/foodLength',(req,res,next) =>{
+    Food.find()
+    .then(foodItem => {
+        foodLength=foodItem.length;
+        console.log(foodLength);
+        res.json([{
+            foodItemLength:foodLength
+        }])
+    })
+})
+
+mongoose.connect(dbURL, { useNewUrlParser: true })
     .then(result => {
         app.listen(8000, () => {
             console.log("Server started")
