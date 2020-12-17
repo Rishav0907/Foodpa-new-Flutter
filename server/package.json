@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": "12.19.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "NODE_ENV=production MONGO_USER=riju2002 MONGO_USER_PASSWORD=aCnmip4obJCClMrL MONGO_DATABASE=test node server.js"
   },
   "author": "Rishav",
   "license": "ISC",
@@ -14,8 +17,11 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-validator": "^6.8.0",
+    "helmet": "^4.2.0",
     "mongoose": "^5.10.15",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.4.17",
+    "otp-generator": "^2.0.0",
     "sequelize": "^6.3.5"
   }
 }

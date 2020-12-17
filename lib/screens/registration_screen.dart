@@ -4,9 +4,10 @@ import 'package:social_media/constants/constant.dart';
 import 'package:social_media/components/input_style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:social_media/screens/login_screen.dart';
 
 enum FieldType { Name, Email, Contact, Password }
-const URL="http://192.168.43.61:8000/register";
+const URL="https://foodpa-app.herokuapp.com/register";
 
 class Registration extends StatefulWidget {
   static String id="registration";
@@ -113,6 +114,7 @@ class _RegistrationState extends State<Registration> {
                     setState(() {
                       showSpinner=false;
                     });
+                    Navigator.pushNamed(context,  Login.id);
                   }
                 },
                 elevation: 15,

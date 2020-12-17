@@ -3,9 +3,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:social_media/components/newPost_input.dart';
 import 'dart:convert';
-
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:social_media/constants/constant.dart';
-const URL="http://192.168.43.61:8000/RegisterFood";
+import 'package:social_media/screens/main_screen.dart';
+const URL="https://foodpa-app.herokuapp.com/RegisterFood";
 String baseImage;
 class NewPost extends StatefulWidget {
   static String id="new_post";
@@ -14,7 +15,7 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
-  
+  var showSpinner=false;
   Future choosePhoto() async{
     var pickedImage=await ImagePicker().getImage(source: ImageSource.gallery);
     final bytes=await pickedImage.readAsBytes();
@@ -42,7 +43,9 @@ class _NewPostState extends State<NewPost> {
         ),
       ),
       body: Center(
-        child: Column(
+        child: ModalProgressHUD(
+          inAsyncCall: showSpinner,
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -88,19 +91,29 @@ class _NewPostState extends State<NewPost> {
             )
           ],
         ),
+        )
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.red,
         child: Container(
           child: FlatButton(
             onPressed: () async{
+              setState(() {
+                showSpinner=true;
+              });
               http.Response response= await http.post(URL,body: {
                 'foodName':foodName,
                 'foodPrice':foodPrice,
                 'foodImage':baseImage
               });
               print(response.body);
-              // Navigator.pop(context);
+              if(response.body=='true')
+              {
+                setState(() {
+                  showSpinner=false;
+                });
+                Navigator.pushNamed(context, MainScreen.id);
+              }
             },
             height: 70,
           child: Text(

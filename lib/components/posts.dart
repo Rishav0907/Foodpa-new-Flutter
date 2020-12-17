@@ -56,7 +56,7 @@ class _PostState extends State<Post> {
             widget.foodName,
             style: TextStyle(fontSize: 30),
           ),
-          Text(widget.foodPrice, style: TextStyle(fontSize: 30)),
+          Text('Rs.${widget.foodPrice}', style: TextStyle(fontSize: 30)),
           SizedBox(
             width: 200,
             child: RaisedButton(

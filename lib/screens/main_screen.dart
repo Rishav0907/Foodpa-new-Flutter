@@ -7,7 +7,7 @@ import 'package:social_media/constants/constant.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-const URL = 'http://192.168.43.61:8000/foodItems';
+const URL = 'https://foodpa-app.herokuapp.com/foodItems';
 
 class MainScreen extends StatefulWidget {
   static String id = "main_screen";
@@ -20,17 +20,24 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    foodLength();
     getFoodData();
   }
-
+  void foodLength() async{
+    http.Response response=await http.get('https://foodpa-app.herokuapp.com/foodLength');
+    foodItemLength=jsonDecode(response.body);
+    print(foodItemLength[0]['foodItemLength']);
+    foodItemLength=foodItemLength[0]['foodItemLength'];
+  }
   void getFoodData() async {
+    // print(foodItemLength);
     http.Response response = await http.get(URL);
     foodData = jsonDecode(response.body);
     setState(() {
       showSpinner = false;
     });
     print(foodData);
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < foodItemLength; i++) {
       print(foodData[i]['foodName']);
     }
   }
@@ -60,11 +67,11 @@ class _MainScreenState extends State<MainScreen> {
               child: ListView(
                 children: [
                   if (showSpinner == false)
-                    for (var i = 2; i > 0; i--)
+                    for (var i = foodItemLength-1; i >= 0; i--)
                       Post(
-                        foodName: foodData[i - 1]['foodName'],
-                        foodPrice: foodData[i - 1]['foodPrice'],
-                        foodImage: foodData[i-1]['foodImage']
+                        foodName: foodData[i]['foodName'],
+                        foodPrice: foodData[i]['foodPrice'],
+                        foodImage: foodData[i]['foodImage']
                       )
                 ],
               )),
